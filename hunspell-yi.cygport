@@ -1,0 +1,30 @@
+NAME="hunspell-yi"
+VERSION=1.1
+RELEASE=1
+CATEGORY="Text"
+SUMMARY="Yiddish dictionary for Hunspell"
+DESCRIPTION="Hunspell is a spell checker and morphological analyzer library
+and program designed for languages with rich morphology and complex
+compounding or character encoding.
+This package provides a Yiddish dictionary for Hunspell."
+HOMEPAGE="http://extensions.services.openoffice.org/en/project/dict-yi"
+SRC_URI="mirror://sourceforge/aoo-extensions/hunspell-yi-${VERSION}.oxt"
+SRC_DIR=.
+
+ARCH=noarch
+
+CYGPORT_USE_UNSTABLE_API=1
+src_unpack_hook() {
+	check_prog_req unzip
+	unzip ${SRC_URI##*/}
+}
+
+src_compile() { :; }
+
+src_install() {
+	cd ${S}
+	insinto /usr/share/myspell
+	newins dictionaries/yi.aff yi_US.aff
+	newins dictionaries/yi.dic yi_US.dic
+	dodoc *.txt
+}
